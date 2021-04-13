@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormik } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 
 const initialValues = {
@@ -19,68 +19,67 @@ const validationSchema = Yup.object({
 });
 
 const YoutubeForm = () => {
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema,
-    // validate,
-  });
-
   console.log("Visited fields", formik.touched);
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit}>
-        <div className="form-control">
-          <label htmlFor="name">
-            {" "}
-            Name <span className="star">*</span>{" "}
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            {...formik.getFieldProps("name")}
-          />
-          <div className="error">
-            {formik.touched.name && formik.errors.name
-              ? formik.errors.name
-              : null}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        <form onSubmit={formik.handleSubmit}>
+          <div className="form-control">
+            <label htmlFor="name">
+              {" "}
+              Name <span className="star">*</span>{" "}
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              {...formik.getFieldProps("name")}
+            />
+            <div className="error">
+              {formik.touched.name && formik.errors.name
+                ? formik.errors.name
+                : null}
+            </div>
           </div>
-        </div>
 
-        <div className="form-control">
-          <label htmlFor="email">
-            E-Mail <span className="star">*</span>
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            {...formik.getFieldProps("email")}
-          />
-          {formik.touched.email && formik.errors.email ? (
-            <div className="error">{formik.errors.email}</div>
-          ) : null}
-        </div>
+          <div className="form-control">
+            <label htmlFor="email">
+              E-Mail <span className="star">*</span>
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              {...formik.getFieldProps("email")}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="error">{formik.errors.email}</div>
+            ) : null}
+          </div>
 
-        <div className="form-control">
-          <label htmlFor="channel">
-            Channel <span className="star">*</span>
-          </label>
-          <input
-            type="text"
-            name="channel"
-            id="channel"
-            {...formik.getFieldProps("channel")}
-          />
-          {formik.touched.channel && formik.errors.channel ? (
-            <div className="error">{formik.errors.channel}</div>
-          ) : null}
-        </div>
+          <div className="form-control">
+            <label htmlFor="channel">
+              Channel <span className="star">*</span>
+            </label>
+            <input
+              type="text"
+              name="channel"
+              id="channel"
+              {...formik.getFieldProps("channel")}
+            />
+            {formik.touched.channel && formik.errors.channel ? (
+              <div className="error">{formik.errors.channel}</div>
+            ) : null}
+          </div>
 
-        <button type="submit">Submit</button>
-      </form>
+          <button type="submit">Submit</button>
+        </form>
+      </Formik>
     </div>
   );
 };
