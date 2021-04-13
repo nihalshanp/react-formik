@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const initialValues = {
   name: "Nihal shan",
@@ -27,11 +28,18 @@ const validate = (values) => {
   return errors;
 };
 
+const validationSchema = Yup.object({
+  name: Yup.string().required("Required"),
+  email: Yup.string().email("Invaid email format").required("Required"),
+  channel: Yup.string().required("Required"),
+});
+
 const YoutubeForm = () => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validate,
+    validationSchema,
+    // validate,
   });
 
   console.log("Visited fields", formik.touched);
@@ -40,7 +48,10 @@ const YoutubeForm = () => {
     <div>
       <form onSubmit={formik.handleSubmit}>
         <div className="form-control">
-          <label htmlFor="name"> Name <span className="star">*</span> </label>
+          <label htmlFor="name">
+            {" "}
+            Name <span className="star">*</span>{" "}
+          </label>
           <input
             type="text"
             name="name"
@@ -49,11 +60,17 @@ const YoutubeForm = () => {
             onBlur={formik.handleBlur}
             value={formik.values.name}
           />
-          <div className="error">{formik.touched.name && formik.errors.name ? formik.errors.name : null}</div>
+          <div className="error">
+            {formik.touched.name && formik.errors.name
+              ? formik.errors.name
+              : null}
+          </div>
         </div>
 
         <div className="form-control">
-          <label htmlFor="email">E-Mail <span className="star">*</span></label>
+          <label htmlFor="email">
+            E-Mail <span className="star">*</span>
+          </label>
           <input
             type="email"
             name="email"
@@ -62,11 +79,15 @@ const YoutubeForm = () => {
             onBlur={formik.handleBlur}
             value={formik.values.email}
           />
-          {formik.touched.email && formik.errors.email ? <div className="error">{formik.errors.email}</div> : null}
+          {formik.touched.email && formik.errors.email ? (
+            <div className="error">{formik.errors.email}</div>
+          ) : null}
         </div>
 
         <div className="form-control">
-          <label htmlFor="channel">Channel <span className="star">*</span></label>
+          <label htmlFor="channel">
+            Channel <span className="star">*</span>
+          </label>
           <input
             type="text"
             name="channel"
@@ -75,7 +96,9 @@ const YoutubeForm = () => {
             onBlur={formik.handleBlur}
             value={formik.values.channel}
           />
-          {formik.touched.channel && formik.errors.channel ? <div className="error">{formik.errors.channel}</div> : null}
+          {formik.touched.channel && formik.errors.channel ? (
+            <div className="error">{formik.errors.channel}</div>
+          ) : null}
         </div>
 
         <button type="submit">Submit</button>
