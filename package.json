@@ -1,4 +1,5 @@
 {
+  "homepage": "https://nihalshanp.github.io/formik-page/",
   "name": "react-formik-demo",
   "version": "0.1.0",
   "private": true,
@@ -15,7 +16,7 @@
   },
   "scripts": {
     "start": "node ./node_modules/react-scripts/bin/react-scripts.js start",
-    "build": "react-scripts build",
+    "build": "node ./node_modules/react-scripts/bin/react-scripts.js build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
