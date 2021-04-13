@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const initialValues = {
@@ -19,8 +19,6 @@ const validationSchema = Yup.object({
 });
 
 const YoutubeForm = () => {
-  console.log("Visited fields", formik.touched);
-
   return (
     <div>
       <Formik
@@ -33,15 +31,9 @@ const YoutubeForm = () => {
             <label htmlFor="name">
               Name <span className="star">*</span>{" "}
             </label>
-            <Field
-              type="text"
-              name="name"
-              id="name"
-            />
+            <Field type="text" name="name" id="name" />
             <div className="error">
-              {formik.touched.name && formik.errors.name
-                ? formik.errors.name
-                : null}
+              <ErrorMessage name="name" />
             </div>
           </div>
 
@@ -49,28 +41,20 @@ const YoutubeForm = () => {
             <label htmlFor="email">
               E-Mail <span className="star">*</span>
             </label>
-            <Field
-              type="email"
-              name="email"
-              id="email"
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <div className="error">{formik.errors.email}</div>
-            ) : null}
+            <Field  name="email" id="email" />
+            <div className="error">
+              <ErrorMessage name="email" />
+            </div>
           </div>
 
           <div className="form-control">
             <label htmlFor="channel">
               Channel <span className="star">*</span>
             </label>
-            <Field
-              type="text"
-              name="channel"
-              id="channel"
-            />
-            {formik.touched.channel && formik.errors.channel ? (
-              <div className="error">{formik.errors.channel}</div>
-            ) : null}
+            <Field type="text" name="channel" id="channel" />
+            <div className="error">
+              <ErrorMessage name="channel" />
+            </div>
           </div>
 
           <button type="submit">Submit</button>
