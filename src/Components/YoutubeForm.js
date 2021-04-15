@@ -1,5 +1,12 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage, FieldArray, FastField } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FieldArray,
+  FastField,
+} from "formik";
 import * as Yup from "yup";
 import TextError from "./TextError";
 
@@ -26,7 +33,13 @@ const validationSchema = Yup.object({
   email: Yup.string().email("Invaid email format").required("Required"),
   channel: Yup.string().required("Required"),
   address: Yup.string().required("Required"),
+  // comments: Yup.string().required("Required")
 });
+
+const validateComments = (value) => {
+  const error = !value ? "Required" : null;
+  return error;
+};
 
 const YoutubeForm = () => {
   return (
@@ -35,8 +48,6 @@ const YoutubeForm = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
-        validateOnChange={false}
-        validateOnBlur={false}
       >
         <Form>
           <div className="form-control">
@@ -70,7 +81,13 @@ const YoutubeForm = () => {
           </div>
           <div className="form-control">
             <label htmlFor="comments">Comments</label>
-            <Field id="comments" name="comments" as="textarea" />
+            <Field
+              id="comments"
+              name="comments"
+              as="textarea"
+              validate={validateComments}
+            />
+            <ErrorMessage name="comments" component={TextError} />
           </div>
           <div className="form-control">
             <label htmlFor="address">
@@ -78,7 +95,7 @@ const YoutubeForm = () => {
             </label>
             <FastField name="address">
               {(props) => {
-                console.log("field render")
+                console.log("field render");
                 const {
                   field,
                   // form,
@@ -117,7 +134,7 @@ const YoutubeForm = () => {
             <FieldArray name="phNumbers">
               {({ push, remove, form }) => {
                 // console.log("field array prop", fieldArrayProp)
-                console.log("Form errors",form.errors)
+                console.log("Form errors", form.errors);
                 const { values } = form;
                 const { phNumbers } = values;
                 return (
