@@ -48,6 +48,7 @@ const YoutubeForm = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        // validateOnMount
       >
         {(formik) => {
           console.log("Formik prop", formik);
@@ -163,31 +164,50 @@ const YoutubeForm = () => {
                   }}
                 </FieldArray>
               </div>
-
-              <button
-                type="button"
-                onClick={() => formik.validateField("comments")}
-              >
-                Validate comments
-              </button>
-              <button type="button" onClick={() => formik.validateForm()}>
-                Validate all
-              </button>
-              <button
-                type="button"
-                onClick={() => formik.setFieldTouched("comments")}
-              >
-                Visit comments
-              </button>
-              <button type="button" onClick={() => formik.setTouched({
-                name: true,
-                email: true,
-                channel:true,
-                comments: true,
-              })}>
-                Visit all
-              </button>
-              <button type="submit">Submit</button>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => formik.validateField("comments")}
+                >
+                  Validate comments
+                </button>
+              </div>
+              <div>
+                <button type="button" onClick={() => formik.validateForm()}>
+                  Validate all
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => formik.setFieldTouched("comments")}
+                >
+                  Visit comments
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    formik.setTouched({
+                      name: true,
+                      email: true,
+                      channel: true,
+                      comments: true,
+                    })
+                  }
+                >
+                  Visit all
+                </button>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  disabled={!(formik.dirty && formik.isValid)}
+                >
+                  Submit
+                </button>
+              </div>
             </Form>
           );
         }}
